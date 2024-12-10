@@ -1,6 +1,7 @@
 ---
 # Metode Spasiotemporal Cokriging untuk Penaksiran Konsentrasi $PM_{2.5}$ di Provinsi Daerah Khusus Ibukota Jakarta
 Ditulis oleh: Fariza Alamanda Putri
+Program Studi Magister Statistika Terapan Universitas Padjadjaran
 
 ## Pendahuluan
 <p style="text-indent: 30px;text-align: justify;">Polusi udara merupakan masalah lingkungan yang signifikan di kota-kota padat penduduk, terutama yang menjadi pusat kegiatan ekonomi dan industri, seperti Jakarta, ibu kota Indonesia. Polusi udara di Jakarta sebagian besar berasal dari konsumsi energi, penggunaan bahan bakar fosil, aktivitas rumah tangga, dan proses industri. Di antara polutan udara, partikel materi halus 2.5 ($PM_{2.5}$) menjadi ancaman serius bagi kesehatan manusia karena ukurannya yang kecil (≤ 2,5 mikrometer, disingkat µm), yang memungkinkan untuk masuk jauh ke dalam sistem pernapasan. Menyadari bahayanya, Pemerintah Indonesia telah menetapkan ambang batas sehat untuk $PM_{2.5}$ sebesar 50 µg/m³ (mikrogram per meter kubik). Informasi yang dapat diandalkan tentang konsentrasi $PM_{2.5}$ sangat penting bagi pembuat kebijakan untuk menyusun strategi mitigasi dan bagi masyarakat untuk melindungi diri dari paparan. </p>
