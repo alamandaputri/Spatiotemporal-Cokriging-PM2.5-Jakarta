@@ -1288,7 +1288,7 @@ plot(cross_var_5, list(sumMetric_Vgm), all=T, wireframe=T, xlab = "Jarak Spasial
 ```
 <img src="img/sample-vs-sumMetric-(pm25~angin).jpg" alt="Cross-Variogram PM2.5~Curah Hujan" width="500">
 
-<p style="text-indent: 30px;text-align: justify;">Fitting cross-variogram variabel konsentrasi PM2.5 dengan kecepatan angin menghasilkan model sum-metric sebagai model dengan MSE terendah dibandingkan dengan model lainnya. Model tersebut menggunakan fungsi Gaussian pada komponen spasial, temporal, dan joint. Gambar tersebut menunjukkan perbandingan cross-variogram empiris variabel konsentrasi PM2.5 dan kecepatan angin dengan cross-variogram teoretis model sum-metric.</p>  
+<p style="text-indent: 30px;text-align: justify;">Fitting cross-variogram variabel konsentrasi $PM_{2.5}$ dengan kecepatan angin menghasilkan model sum-metric sebagai model dengan MSE terendah dibandingkan dengan model lainnya. Model tersebut menggunakan fungsi Gaussian pada komponen spasial, temporal, dan joint. Gambar tersebut menunjukkan perbandingan cross-variogram empiris variabel konsentrasi $PM_{2.5}$ dan kecepatan angin dengan cross-variogram teoretis model sum-metric.</p>  
 
 ## Memprediksi Data Test  
 ```{r}
@@ -1460,7 +1460,7 @@ peta
 
 <p style="text-indent: 30px;text-align: justify;">Distribusi secara spasial menunjukkan bahwa konsentrasi $PM_{2.5}$ cenderung lebih rendah pada awal tahun (Januari hingga April) dan akhir tahun (November-Desember). Konsentrasi $PM_{2.5}$ meningkat secara signifikan pada pertengahan tahun, yaitu selama periode Mei hingga Oktober. Pola ini berkaitan dengan faktor meteorologis, seperti meningkatnya curah hujan selama musim hujan (di akhir dan awal tahun) yang melarutkan dan menghilangkan polutan, serta curah hujan yang lebih rendah selama musim kemarau, yang membatasi proses pemurnian udara. Selain itu, kecepatan angin yang lebih rendah selama musim kemarau berkontribusi pada akumulasi polutan di area tertentu.</p>
 
-<p style="text-indent: 30px;text-align: justify;">Hasil estimasi menunjukkan bahwa konsentrasi $PM_{2.5}$ pada tahun 2023 berada pada rentang 15,41 µg/m3 hingga 65,88 µg/m3. Indonesia menetapkan nilai ambang batas konsentrasi PM2.5 maksimal 50 µg/m3. Wilayah-wilayah dengan konsentrasi yang melebihi nilai ambang batas sehat ditunjukkan dengan warna jingga hingga merah. Terlihat bahwa konsentrasi $PM_{2.5}$ melebihi ambang batas pada periode-periode musim kemarau.</p>
+<p style="text-indent: 30px;text-align: justify;">Hasil estimasi menunjukkan bahwa konsentrasi $PM_{2.5}$ pada tahun 2023 berada pada rentang 15,41 µg/m3 hingga 65,88 µg/m3. Indonesia menetapkan nilai ambang batas konsentrasi $PM_{2.5}$ maksimal 50 µg/m3. Wilayah-wilayah dengan konsentrasi yang melebihi nilai ambang batas sehat ditunjukkan dengan warna jingga hingga merah. Terlihat bahwa konsentrasi $PM_{2.5}$ melebihi ambang batas pada periode-periode musim kemarau.</p>
 
 <p style="text-indent: 30px;text-align: justify;">Konsentrasi $PM_{2.5}$ yang tinggi umumnya teramati di Jakarta Utara, Jakarta Pusat, dan sebagian wilayah Jakarta Selatan. Di Jakarta Utara dan Jakarta Pusat, peningkatan konsentrasi $PM_{2.5}$ terjadi karena kepadatan penduduk tinggi, aktivitas industri yang tinggi, dan emisi gas dari kendaraan bermotor. Faktor-faktor tersebut juga meningkatkan konsentrasi $NO_2$ yang berkontribusi terhadap peningkatan $PM_{2.5}$.</p>
 
