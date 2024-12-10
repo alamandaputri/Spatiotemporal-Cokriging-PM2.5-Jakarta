@@ -119,11 +119,11 @@ print(results_long)
 ```
 | **Variabel**   | **Minimum** | **Maksimum** | **Mean**     | **Std Dev**  |
 |-----------------|-------------|-------------|--------------|--------------|
-| Angin          | 2,14        | 6,22        | 3,794224     | 0,8696644    |
-| Kelembaban     | 67,07       | 89,79       | 78,398784    | 4,8258985    |
-| NO2            | 3,90        | 29,96774    | 19,367660    | 5,8341539    |
-| PM25           | 14,56       | 68,83       | 39,574875    | 11,6912578   |
-| Presipitasi    | 0,00        | 558,83      | 139,817902   | 137,7821747  |
+| Angin          | 2,14        | 6,22        | 3,79         | 0,86         |
+| Kelembaban     | 67,07       | 89,79       | 78,39        | 4,83         |
+| NO2            | 3,90        | 29,97       | 19,37        | 5,83         |
+| PM25           | 14,56       | 68,83       | 39,57        | 11,69        |
+| Presipitasi    | 0,00        | 558,83      | 139,82       | 137,78       |
 
 <p style="text-indent: 30px;text-align: justify;">Konsentrasi $PM_{2.5}$ menunjukkan variasi sepanjang tahun, yang ditunjukkan oleh standar deviasi sebesar 11,69 µg/m³. Nilai ini menunjukkan bahwa konsentrasi $PM_{2.5}$ menyimpang sebesar 11,69 µg/m³ dari rata-rata. Konsentrasi $PM_{2.5}$ terendah terjadi pada bulan Februari, dengan nilai 14,56 µg/m³, sedangkan konsentrasi maksimum tercatat pada bulan Agustus, mencapai 68,83 µg/m³. Konsentrasi $NO_{2}$ terendah adalah 3,9 µg/m³, yang terjadi pada bulan Desember, sedangkan konsentrasi tertinggi, juga tercatat pada bulan Desember tetapi di lokasi yang berbeda, adalah 29,97 µg/m³. Curah hujan menunjukkan variabilitas yang lebih tinggi dibandingkan dengan variabel lainnya, sebagaimana tercermin dalam standar deviasi sebesar 137,78 mm. Curah hujan minimum di Jakarta selama periode 2023 adalah 0 mm, yang menunjukkan tidak ada hujan sama sekali dalam satu bulan penuh, sedangkan curah hujan maksimum mencapai 558,83 mm. Variabel kelembapan udara dan kecepatan angin menunjukkan nilai yang relatif homogen di seluruh lokasi dan periode waktu, dengan standar deviasi masing-masing sebesar 4,82% dan 0,87 m/s. </p>
 
