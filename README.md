@@ -1,6 +1,6 @@
 ---
 # Metode Spasiotemporal Cokriging untuk Penaksiran Konsentrasi $PM_{2.5}$ di Provinsi Daerah Khusus Ibukota Jakarta
-Ditulis oleh: Fariza Alamanda Putri
+Ditulis oleh: Fariza Alamanda Putri  
 Program Studi Magister Statistika Terapan Universitas Padjadjaran
 
 ## Pendahuluan
@@ -188,16 +188,19 @@ ggplot() +
                nudge_y = c(0.01, 0.01, 0.02, 0.02, 0.01), 
                nudge_x = c(0, 0.02, 0, 0.02, 0), color = "black") +  
   geom_sf(data = stasiun_train, aes(color = "Latih"), size = 2) +  # Tambahkan label legenda
-  geom_sf(data = stasiun_test, aes(color = "Uji"), size = 2) +    # Tambahkan label legenda
+  geom_sf(data = stasiun_test, aes(color = "Uji"), size = 2) +     # Tambahkan label legenda
   scale_color_manual(name = "Data", values = c("Latih" = "blue", "Uji" = "orangered")) + # Skala warna
   theme_minimal() +
   labs(x = "Longitude",
        y = "Latitude") +
-  theme(panel.grid.major = element_blank(),  # Ubah grid besar jadi putih
-        panel.grid.minor = element_blank(),  # Ubah grid kecil jadi putih
+  theme(panel.grid.major = element_blank(), # hapus grid
+        panel.grid.minor = element_blank(), # hapus grid
         legend.title = element_text(size = 12),  # Ukuran judul legenda
         legend.text = element_text(size = 10))   # Ukuran teks legenda
 ```
+
+<img src="img/sebaran-train-test.jpg" alt="Sebaran Train-Test" width="500" style="display: block; margin: 0 auto;">
+
 <p style="text-indent: 30px;text-align: justify;">Gambar tersebut menunjukkan pembagian data yang digunakan sebagai data latih dan data uji. Observasi yang ditunjukkan oleh titik berwarna biru menunjukkan data latih, sedangkan titik berwarna merah menunjukkan data uji. Berikut ini adalah proses membagi data dan mengubah data ke dalam format STFDF </p>
 
 ```{r}
@@ -255,6 +258,32 @@ var <- variogramST(g, data = stfdf.train,
 plot(var)
 #write.xlsx(var, "D:/TESIS/Hasil/excels/Semivariogram empiris.xlsx")
 ```
+
+<img src="img/empiris-id.png" alt="Semivariogram Empiris" width="500" style="display: block; margin: 0 auto;">
+
+<p style="text-indent: 30px;text-align: justify;">Semivariogram empiris dihasilkan menggunakan data pelatihan yang terdiri dari 23 titik lokasi selama periode 12 bulan. Komponen spasial dari semivariogram empiris menunjukkan variasi minimal dalam nilai gamma seiring dengan bertambahnya jarak spasial, yang mengindikasikan variabilitas spasial yang terbatas dalam rentang pengamatan. Sebaliknya, nilai gamma menunjukkan peningkatan yang jelas seiring dengan bertambahnya lag waktu, mencerminkan variabilitas yang lebih besar seiring waktu. Menariknya, penurunan nilai gamma diamati pada lag waktu terbesar, yang mungkin menunjukkan efek smoothing atau korelasi temporal yang berkurang pada interval yang lebih panjang. </p>
+
+<p style="text-indent: 30px;text-align: justify;">Semivariogram empiris kemudian dimodelkan menggunakan berbagai semivariogram teoretis. Dengan menggabungkan tiga model semivariogram marginal (spherical, exponential, dan Gaussian) untuk komponen spasial, temporal, dan gabungan (spasial), total 9 model separable, 9 model product-sum, 3 model metric, 27 model sum-metric, dan 27 model simple sum-metric dievaluasi. Gambar menggambarkan bentuk semivariogram spasiotemporal yang dihasilkan dari kombinasi terbaik di setiap kategori model teoretis. Proses pemodelan ini bertujuan untuk menentukan semivariogram teoretis mana yang paling akurat menangkap pola variabilitas spasiotemporal yang diamati dalam semivariogram empiris. </p>
+
+```{r}
+print(var)
+```
+| **np** | **dist**   | **gamma**  | **id**   | **timelag** | **spacelag** | **avgDist** |
+|--------|------------|------------|----------|-------------|--------------|-------------|
+| 0      | NA         | NA         | lag0     | 0 days      | 0,000        | 0,0000      |
+| 24     | 721,5611   | 2,119802   | lag0     | 0 days      | 449,318      | 721,5611    |
+| 12     | 1319,6596  | 8,503237   | lag0     | 0 days      | 1347,954     | 1319,6596   |
+| 60     | 2161,6545  | 4,327761   | lag0     | 0 days      | 2246,590     | 2161,6545   |
+| 72     | 3074,1309  | 2,719611   | lag0     | 0 days      | 3145,226     | 3074,1309   |
+| 96     | 3980,1009  | 6,023574   | lag0     | 0 days      | 4043,862     | 3980,1009   |
+| ...    | ...        | ...        | ...      | ...         | ...          | ...         |
+| 187    | 8604,812   | 2,860425   | lag11    | 341 days    | 8537,042     | 8604,812    |
+| 188    | 9515,440   | 3,537421   | lag11    | 341 days    | 9435,678     | 9515,440    |
+| 189    | 10284,410  | 17,669637  | lag11    | 341 days    | 10334,314    | 10284,410   |
+| 190    | 11077,128  | 2,925169   | lag11    | 341 days    | 11232,950    | 11077,128   |
+| 191    | 12132,165  | 30,303786  | lag11    | 341 days    | 12131,586    | 12132,165   |
+| 192    | 12892,806  | 2,563838   | lag11    | 341 days    | 13030,222    | 12892,806   |
+
 Jika ingin membuat plot 3D interaktif dapat menggunakan code dibawah ini
 ```{r}
 # Ekstrak informasi dari variogramST object
@@ -273,15 +302,7 @@ plot_ly(x = ~distances, y = ~time_lags, z = ~gamma_values,
   )) %>%
   colorbar(title = "Gamma")
 ```
-<p style="text-indent: 30px;text-align: justify;">Semivariogram empiris dihasilkan menggunakan data pelatihan yang terdiri dari 23 titik lokasi selama periode 12 bulan. Komponen spasial dari semivariogram empiris menunjukkan variasi minimal dalam nilai gamma seiring dengan bertambahnya jarak spasial, yang mengindikasikan variabilitas spasial yang terbatas dalam rentang pengamatan. Sebaliknya, nilai gamma menunjukkan peningkatan yang jelas seiring dengan bertambahnya lag waktu, mencerminkan variabilitas yang lebih besar seiring waktu. Menariknya, penurunan nilai gamma diamati pada lag waktu terbesar, yang mungkin menunjukkan efek smoothing atau korelasi temporal yang berkurang pada interval yang lebih panjang. </p>
-
-<p style="text-indent: 30px;text-align: justify;">Semivariogram empiris kemudian dimodelkan menggunakan berbagai semivariogram teoretis. Dengan menggabungkan tiga model semivariogram marginal (spherical, exponential, dan Gaussian) untuk komponen spasial, temporal, dan gabungan (spasial), total 9 model separable, 9 model product-sum, 3 model metric, 27 model sum-metric, dan 27 model simple sum-metric dievaluasi. Gambar menggambarkan bentuk semivariogram spasiotemporal yang dihasilkan dari kombinasi terbaik di setiap kategori model teoretis. Proses pemodelan ini bertujuan untuk menentukan semivariogram teoretis mana yang paling akurat menangkap pola variabilitas spasiotemporal yang diamati dalam semivariogram empiris. </p>
-
-```{r}
-head(var, 6)
-tail(var, 6)
-```
-
+## Semivariogram Fitting
 ```{r}
 # setting lower and upper bounds
 pars.l <- c(sill.s = 13.75739, range.s = 0.1*30762.69, nugget.s = 0, 
@@ -510,13 +531,14 @@ semivar_plot <- wrap_plots(
 # Print the combined plot
 print(semivar_plot)
 ```
+<img src="img/perbandingan-5-model-semivariogram.png" alt="Perbandingan Model Teoretis dengan Semivariogram Empiris" width="500" style="display: block; margin: 0 auto;">
+
 <p style="text-indent: 30px;text-align: justify;">Semivariogram teoretis dengan MSE terendah menunjukkan kemampuannya untuk menjelaskan pola variabilitas yang diamati dalam semivariogram empiris. Oleh karena itu, semivariogram teoretis dengan MSE terendah akan digunakan untuk menghasilkan matriks gamma dalam persamaan prediksi cokriging. Model teoretis dengan MSE terendah adalah model sum-metric dengan nilai MSE sebesar 292,152. Selain itu, juga terlihat bahwa semivariogram sum-metric menunjukkan pola yang paling mirip dengan semivariogram empiris. Dengan demikian, model sum-metric akan digunakan untuk menghasilkan matriks gamma $\Gamma_{11}$ untuk perhitungan bobot cokriging selanjutnya.</p>
 
-## Cross-Variogram
+## Cross-Variogram Fitting
 <p style="text-indent: 30px;text-align: justify;">Proses fitting juga dilakukan terhadap cross-variogram antara variabel $PM_{2.5}$ dengan variabel prediktor menggunakan langkah yang sama seperti pada fitting semivariogram. Fitting dilakukan menggunakan model teoretis product, product-sum, metric, sum-metric, dan simple sum-metric. Proses ini dilakukan untuk mendapatkan estimasi nilai parameter cross-variogram dengan meminimalkan selisih antara nilai empiris dengan teoretis menggunakan metode OLS. Proses ini akan menghasilkan fungsi kontinu yang akan digunakan dalam pembangkitan nilai cross-variogram.</p>    
 
 ### Cross-Variogram antara $PM_{2.5}$ and $NO_{2}$
-
 ```{r}
 # =========================================PM25~NO2
 g_2 <- gstat(NULL, "PM25", PM25 ~ 1, data = stfdf.train, fill.cross = TRUE) %>%
@@ -696,10 +718,11 @@ cv2_summetric = extractPar(sumMetric_Vgm);cv2_summetric
 
 plot(cross_var_2, list(sumMetric_Vgm), all=T, wireframe=T)
 ```
+<img src="img/sample-vs-sumMetric-(pm25~no2).jpg" alt="Cross-Variogram PM2.5~NO2" width="500">
+
 <p style="text-indent: 30px;text-align: justify;">Pada fitting ini, fungsi semivariogram marginal spasial menggunakan model Gaussian, sementara fungsi marginal temporal menggunakan model spherical, dan komponen joint menggunakan fungsi eksponensial. Gambar tersebut menunjukkan perbandingan cross-variogram empiris variabel konsentrasi $PM_{2.5}$ dan konsentrasi $NO_2$ dengan cross-variogram teoretis model sum-metric.</p>
 
 ### Cross-Variogram antara $PM_{2.5}$ dan Curah Hujan
-
 ```{r}
 # =========================================PM25~Presipitasi
 g_3 <- gstat(NULL, "PM25", PM25 ~ 1, data = stfdf.train, fill.cross = TRUE) %>%
@@ -889,6 +912,8 @@ cv3_ssmetric = extractPar(SimplesumMetric_Vgm);cv3_ssmetric
 
 plot(cross_var_3, list(SimplesumMetric_Vgm), all=T, wireframe=T)
 ```
+<img src="img/sample-vs-simple-sumMetric (pm25~presipitasi).jpg" alt="Cross-Variogram PM2.5~Curah Hujan" width="500">
+
 <p style="text-indent: 30px;text-align: justify;">Dalam fitting cross-variogram antara variabel konsentrasi $PM_{2.5}$ dan curah hujan, model simple sum-metric menghasilkan nilai MSE paling rendah dibandingkan model lainnya. Model tersebut menggunakan fungsi Gaussian pada komponen spasial, fungsi spherical pada temporal, dan fungsi Gaussian pada komponen joint. </p>  
 
 ### Cross-Variogram antara $PM_{2.5}$ dan Kelembaban
@@ -1073,6 +1098,8 @@ cv4_metric = extractPar(metric_Vgm);cv4_metric
 plot(cross_var_4, list(metric_Vgm), all=T, wireframe=T, xlab = "Jarak Spasial", ylab = 'Lag Waktu (hari)', 
      zlab = 'Gamma')
 ```
+<img src="img/sample-vs-metric-(pm25~kelembaban).jpg" alt="Cross-Variogram PM2.5~Kelembaban" width="500">
+
 <p style="text-indent: 30px;text-align: justify;">Hasil fitting cross-variogram variabel konsentrasi $PM_{2.5}$ dengan kelembaban menunjukkan bahwa model metric dengan fungsi Gaussian memberikan MSE terendah dibandingkan model lainnya</p>  
 
 ### Cross-Variogram antara $PM_{2.5}$ dan Kecepatan Angin
@@ -1259,10 +1286,11 @@ cv5_summetric = extractPar(sumMetric_Vgm);cv5_summetric
 plot(cross_var_5, list(sumMetric_Vgm), all=T, wireframe=T, xlab = "Jarak Spasial", ylab = 'Lag Waktu (hari)', 
      zlab = 'Gamma')
 ```
+<img src="img/sample-vs-sumMetric-(pm25~angin).jpg" alt="Cross-Variogram PM2.5~Curah Hujan" width="500">
+
 <p style="text-indent: 30px;text-align: justify;">Fitting cross-variogram variabel konsentrasi PM2.5 dengan kecepatan angin menghasilkan model sum-metric sebagai model dengan MSE terendah dibandingkan dengan model lainnya. Model tersebut menggunakan fungsi Gaussian pada komponen spasial, temporal, dan joint. Gambar tersebut menunjukkan perbandingan cross-variogram empiris variabel konsentrasi PM2.5 dan kecepatan angin dengan cross-variogram teoretis model sum-metric.</p>  
 
 ## Predict The Test Data  
-
 ```{r}
 sumMetric = vgmST("sumMetric", space = vgm(psill = param_summetric[1], "Gau", range = param_summetric[2], nugget = param_summetric[3]),
                   time = vgm(psill = param_summetric[4], "Mat", range = param_summetric[5], nugget = param_summetric[6]),
@@ -1282,6 +1310,11 @@ e = prediksi_vs_aktual$Prediksi-prediksi_vs_aktual$Aktual
 cat("MAPE Test: ", MAPE_test)
 cat("RMSE Test: ", RMSE_test)
 ```
+| **Metric**     | **Value**   |
+|-----------------|-------------|
+| MAPE Test      | 0,6588764   |
+| RMSE Test      | 0,3843981   |
+
 <p style="text-indent: 30px;text-align: justify;">Evaluasi dilakukan menggunakan dua ukuran kekeliruan, yaitu nilai RMSE dan MAPE. Model variogram teoretis yang dipilih memberikan prediksi yang akurat pada data uji, dengan nilai MAPE sebesar 0,659% dan RMSE sebesar 0,384.</p>
 
 ## Estimasi Konsentrasi $PM_{2.5}$ di Seluruh Wilayah Jakarta  
@@ -1423,6 +1456,8 @@ peta = ggplot() +
   labs(fill = "PM2.5")
 peta
 ```
+<img src="img/plot-prediksi.jpg" alt="Plot Prediksi PM2.5 Jakarta Tahun 2023" width="500">
+
 <p style="text-indent: 30px;text-align: justify;">Distribusi secara spasial menunjukkan bahwa konsentrasi $PM_{2.5}$ cenderung lebih rendah pada awal tahun (Januari hingga April) dan akhir tahun (November-Desember). Konsentrasi $PM_{2.5}$ meningkat secara signifikan pada pertengahan tahun, yaitu selama periode Mei hingga Oktober. Pola ini berkaitan dengan faktor meteorologis, seperti meningkatnya curah hujan selama musim hujan (di akhir dan awal tahun) yang melarutkan dan menghilangkan polutan, serta curah hujan yang lebih rendah selama musim kemarau, yang membatasi proses pemurnian udara. Selain itu, kecepatan angin yang lebih rendah selama musim kemarau berkontribusi pada akumulasi polutan di area tertentu.</p>
 
 <p style="text-indent: 30px;text-align: justify;">Hasil estimasi menunjukkan bahwa konsentrasi $PM_{2.5}$ pada tahun 2023 berada pada rentang 15,41 µg/m3 hingga 65,88 µg/m3. Indonesia menetapkan nilai ambang batas konsentrasi PM2.5 maksimal 50 µg/m3. Wilayah-wilayah dengan konsentrasi yang melebihi nilai ambang batas sehat ditunjukkan dengan warna jingga hingga merah. Terlihat bahwa konsentrasi $PM_{2.5}$ melebihi ambang batas pada periode-periode musim kemarau.</p>
