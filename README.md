@@ -1290,7 +1290,7 @@ plot(cross_var_5, list(sumMetric_Vgm), all=T, wireframe=T, xlab = "Jarak Spasial
 
 <p style="text-indent: 30px;text-align: justify;">Fitting cross-variogram variabel konsentrasi PM2.5 dengan kecepatan angin menghasilkan model sum-metric sebagai model dengan MSE terendah dibandingkan dengan model lainnya. Model tersebut menggunakan fungsi Gaussian pada komponen spasial, temporal, dan joint. Gambar tersebut menunjukkan perbandingan cross-variogram empiris variabel konsentrasi PM2.5 dan kecepatan angin dengan cross-variogram teoretis model sum-metric.</p>  
 
-## Predict The Test Data  
+## Memprediksi Data Test  
 ```{r}
 sumMetric = vgmST("sumMetric", space = vgm(psill = param_summetric[1], "Gau", range = param_summetric[2], nugget = param_summetric[3]),
                   time = vgm(psill = param_summetric[4], "Mat", range = param_summetric[5], nugget = param_summetric[6]),
