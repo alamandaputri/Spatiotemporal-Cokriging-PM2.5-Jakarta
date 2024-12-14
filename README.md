@@ -174,9 +174,9 @@ str(province_boundary)
 
 jkt_boundary <- province_boundary %>% 
   filter(NAME_1 == "Jakarta Raya")
-#jkt_boundary[-6,"NAME_EN"] = c('West Jakarta', 'Central Jakarta', 'South Jakarta',
-#                               'East Jakarta', 'North Jakarta')
-jkt_boundary[-6,"NAME_EN"] = c('Jakarta Barat', 'Jakarta Pusat', 'Jakarta Selatan',
+jkt_boundary[-6,"NAME_EN"] = c('West Jakarta', 'Central Jakarta', 'South Jakarta',
+                               'East Jakarta', 'North Jakarta')
+jkt_boundary[-6,"NAME_ID"] = c('Jakarta Barat', 'Jakarta Pusat', 'Jakarta Selatan',
                                'Jakarta Timur', 'Jakarta Utara')
 # Extract the boundary lines for visualization
 boundary_lines <- st_cast(jkt_boundary, "MULTILINESTRING")
@@ -184,7 +184,7 @@ boundary_lines <- st_cast(jkt_boundary, "MULTILINESTRING")
 # Plot the points and the filtered Jakarta boundary with legend title as "SPKU"
 ggplot() +
   geom_sf(data = jkt_boundary[-6,], fill = "lightyellow", color = "brown") +
-  geom_sf_text(data = jkt_boundary[-6,], aes(label = NAME_EN), size = 4, 
+  geom_sf_text(data = jkt_boundary[-6,], aes(label = NAME_ID), size = 4, 
                nudge_y = c(0.01, 0.01, 0.02, 0.02, 0.01), 
                nudge_x = c(0, 0.02, 0, 0.02, 0), color = "black") +  
   geom_sf(data = stasiun_train, aes(color = "Latih"), size = 2) +  # Tambahkan label legenda
